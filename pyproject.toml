@@ -1,0 +1,36 @@
+[project]
+name = "spicex"
+description="A differentiable SPICE circuit solver in JAX"
+authors = [
+    { name = "Philip Mocz", email = "philip.mocz@gmail.com" },
+]
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0"
+dynamic = ["version", "dependencies"]
+
+[tool.setuptools.packages.find]
+include = ["spicex*"]
+exclude = ["paper"]
+
+[tool.setuptools.package-data]
+"spicex" = ["*.json"]
+
+[project.urls]
+Documentation = "https://spicex.readthedocs.io"
+Homepage = "https://github.com/SpiceXProject/spicex"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[project.optional-dependencies]
+cuda12 = [
+    "jax[cuda12]==0.6.0",
+]
+
+[tool.setuptools-git-versioning]
+enabled = true
+
+[build-system]
+requires = ["setuptools>=70.1.1", "wheel", "setuptools-git-versioning>=2.0,<3"]
+build-backend = "setuptools.build_meta"
