@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://adirondax.readthedocs.io">
-    <img src="docs/_static/spicex-logo.svg" alt="spicex" width="400"/>
+    <img src="docs/_static/spicex-logo.svg" alt="spicex" width="360"/>
   </a>
 </p>
 
