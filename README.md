@@ -1,4 +1,8 @@
-
+<p align="center">
+  <a href="https://adirondax.readthedocs.io">
+    <img src="docs/_static/spicex-logo.svg" alt="spicex" width="400"/>
+  </a>
+</p>
 
 # spicex
 
@@ -6,6 +10,9 @@
 A differentiable SPICE circuit solver in JAX
 
 Author: [Philip Mocz (@pmocz)](https://github.com/pmocz/)
+
+⚠️ SpiceX is currently being built and is not yet ready for use. Check back later ⚠️
+
 
 ## Install SpiceX
 

@@ -8,11 +8,6 @@ spicex
       :columns: 12 12 12 12
       :class-card: spicex-summary
 
-      .. image:: _static/spicex-logo.svg
-         :alt: spicex logo
-         :width: 96px
-         :align: left
-
       **spicex** is a differentiable SPICE circuit solver implemented in JAX.
 
 ⚠️ SpiceX is currently being built and is not yet ready for use. Check back later! ⚠️
