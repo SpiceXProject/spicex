@@ -52,9 +52,6 @@ or see the docs for how to [build from source](https://spicex.readthedocs.io/en/
 
 Check out the [`examples/`](https://github.com/SpiceXProject/spicex/tree/main/examples/) directory for demonstrations of using SpiceX.
 
-XXX
-
-
 
 ## Links
 
