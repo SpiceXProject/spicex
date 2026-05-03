@@ -40,6 +40,26 @@ def test_resistors_in_series():
     assert jnp.allclose(i_vsrc, jnp.array([5.0 / 3000.0]), rtol=rel_tol)
 
 
+def test_capacitor_with_resistor():
+    # 5 V source, 1 kΩ and 10 µF in parallel: C open in DC, I_src = 5 mA, I_cap = 0
+    v_nodes, i_vsrc, i_capacitor = run_example_main(
+        "examples/capacitor_with_resistor/capacitor_with_resistor.py"
+    )
+    assert jnp.allclose(v_nodes, jnp.array([0.0, 5.0]), rtol=rel_tol)
+    assert jnp.allclose(i_vsrc, jnp.array([5e-3]), rtol=rel_tol)
+    assert jnp.allclose(i_capacitor, jnp.array([0.0]), rtol=rel_tol)
+
+
+def test_inductor_with_resistor():
+    # 5 V source, 10 mH inductor (short in DC), 1 kΩ: V(n2)=5 V, I=5 mA
+    v_nodes, i_vsrc, i_inductor = run_example_main(
+        "examples/inductor_with_resistor/inductor_with_resistor.py"
+    )
+    assert jnp.allclose(v_nodes, jnp.array([0.0, 5.0, 5.0]), rtol=rel_tol)
+    assert jnp.allclose(i_vsrc, jnp.array([5e-3]), rtol=rel_tol)
+    assert jnp.allclose(i_inductor, jnp.array([5e-3]), rtol=rel_tol)
+
+
 def test_resistor_sweep():
     R_L_values, powers = run_example_main("examples/resistor_sweep/resistor_sweep.py")
     V_S = 10.0

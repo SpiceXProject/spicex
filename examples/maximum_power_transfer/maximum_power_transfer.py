@@ -25,7 +25,7 @@ def power_in_load(log_R_L):
     circuit.add_voltage_source(0, 1, V_S)
     circuit.add_resistor(1, 2, R_S)
     circuit.add_resistor(2, 0, R_L)
-    v_nodes, _ = circuit.solve()
+    v_nodes, *_ = circuit.solve()
     return v_nodes[2] ** 2 / R_L
 
 

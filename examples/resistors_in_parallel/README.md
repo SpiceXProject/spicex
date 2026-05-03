@@ -7,7 +7,7 @@ Simple resistors in parallel example
 ```
  n1+----------+----------+
    |          |          |
- [ V=5V ] [ R1=1 kOhm ] [ R2=2 kOhm ]
+ [ V=5V ] [ R1=1kΩ ] [ R2=2kΩ ]
    |          |          |
  n0+----------+----------+
 ```

@@ -19,7 +19,7 @@ def main():
     circuit.add_current_source(0, 1, 1e-3)  # 1 mA from ground to node 1
     circuit.add_resistor(1, 0, 1e3)  # 1 kΩ from node 1 to ground
 
-    v_nodes, i_vsrc = circuit.solve()
+    v_nodes, i_vsrc, *_ = circuit.solve()
 
     print(f"Node voltages: {v_nodes}")
     print(f"Voltage source currents: {i_vsrc}")
