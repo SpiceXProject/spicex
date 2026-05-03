@@ -38,3 +38,18 @@ def test_resistors_in_series():
     )
     assert jnp.allclose(v_nodes, jnp.array([0.0, 5.0, 10.0 / 3.0]), rtol=rel_tol)
     assert jnp.allclose(i_vsrc, jnp.array([5.0 / 3000.0]), rtol=rel_tol)
+
+
+def test_resistor_sweep():
+    R_L_values, powers = run_example_main("examples/resistor_sweep/resistor_sweep.py")
+    V_S = 10.0
+    R_S = 1e3
+
+    def analytical_power(R_L):
+        return V_S**2 * R_L / (R_S + R_L) ** 2
+
+    expected = analytical_power(R_L_values)
+    assert jnp.allclose(powers, expected, rtol=rel_tol)
+    # Peak should be near R_L = R_S = 1 kΩ
+    idx_peak = int(jnp.argmax(powers))
+    assert 0.95 * R_S <= float(R_L_values[idx_peak]) <= 1.05 * R_S

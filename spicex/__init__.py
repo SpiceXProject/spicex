@@ -3,6 +3,7 @@ from importlib.metadata import version, PackageNotFoundError
 from .circuit import Circuit as Circuit
 from .constants import constants as constants
 from .optimize import optimize as optimize
+from .sweep import sweep as sweep
 
 
 """
@@ -20,4 +21,5 @@ __all__ = [
     "Circuit",
     "constants",
     "optimize",
+    "sweep",
 ]

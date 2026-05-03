@@ -1,3 +1,7 @@
+"""
+Optimization utilities for spicex circuits
+"""
+
 from typing import NamedTuple
 
 import chex

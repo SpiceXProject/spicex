@@ -40,11 +40,11 @@ def main():
 
     R_L_opt = jnp.exp(log_R_L_opt)
     P_opt = power_in_load(log_R_L_opt)
-    P_analytical = V_S**2 / (4.0 * R_S)
+    P_analytic = V_S**2 / (4.0 * R_S)
 
     print(f"Optimal R_L:   {float(R_L_opt):.2f} Ohm  (analytic: {R_S:.0f} Ohm)")
     print(
-        f"Maximum power: {float(P_opt) * 1e3:.4f} mW  (analytic: {P_analytical * 1e3:.0f} mW)"
+        f"Max power: {float(P_opt) * 1e3:.4f} mW  (analytic: {P_analytic * 1e3:.0f} mW)"
     )
 
     return R_L_opt, P_opt
