@@ -1,7 +1,7 @@
 from importlib.metadata import version, PackageNotFoundError
 
 from .circuit import Circuit as Circuit
-from . import constants as constants
+from .constants import constants as constants
 
 
 """

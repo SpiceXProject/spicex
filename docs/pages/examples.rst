@@ -21,6 +21,22 @@ Script:
    :language: python
 
 
+maximum_power_transfer
+----------------------
+
+See on GitHub: `examples/maximum_power_transfer <https://github.com/SpiceXProject/spicex/tree/main/examples/maximum_power_transfer>`_
+
+README:
+
+.. literalinclude:: ../../examples/maximum_power_transfer/README.md
+   :language: md
+
+Script:
+
+.. literalinclude:: ../../examples/maximum_power_transfer/maximum_power_transfer.py
+   :language: python
+
+
 resistors_in_parallel
 ---------------------
 

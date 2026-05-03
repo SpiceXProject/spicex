@@ -18,12 +18,12 @@ def run_example_main(example_path, argv=None):
     old_argv = sys.argv.copy()
     try:
         spec = importlib.util.spec_from_file_location(
-            script_name.rstrip(".py"), example_path
+            Path(script_name).stem, example_path
         )
         os.chdir(example_dir)
         sys.argv = [script_name] + (argv if argv is not None else [])
         module = importlib.util.module_from_spec(spec)
-        sys.modules[script_name.rstrip(".py")] = module
+        sys.modules[Path(script_name).stem] = module
         spec.loader.exec_module(module)
         if hasattr(module, "main"):
             result = module.main()
