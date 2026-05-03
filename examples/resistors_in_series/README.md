@@ -1,10 +1,11 @@
 # Resistors in Series
 
-simple resistors in series example
-
 Philip Mocz (2026)
 
-Usage:
+simple resistors in series example
+
+
+## Usage
 
 ```console
 python resistors_in_series.py

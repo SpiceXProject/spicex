@@ -20,3 +20,12 @@ def test_resistors_in_parallel():
     )
     assert jnp.allclose(v_nodes, jnp.array([0.0, 5.0]), rtol=rel_tol)
     assert jnp.allclose(i_vsrc, jnp.array([3.0 / 400.0]), rtol=rel_tol)
+
+
+def test_current_source_with_resistor():
+    # 1 mA current source into node 1, 1 kΩ to ground: V(node_1) = 1 mA * 1 kΩ = 1 V
+    v_nodes, i_vsrc = run_example_main(
+        "examples/current_source_with_resistor/current_source_with_resistor.py"
+    )
+    assert jnp.allclose(v_nodes, jnp.array([0.0, 1.0]), rtol=rel_tol)
+    assert i_vsrc.shape == (0,)

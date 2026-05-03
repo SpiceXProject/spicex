@@ -5,6 +5,22 @@ The `examples/ <https://github.com/SpiceXProject/spicex/tree/main/examples>`_ di
 a collection of scripts demonstrating various applications of spicex.
 
 
+current_source_with_resistor
+----------------------------
+
+See on GitHub: `examples/current_source_with_resistor <https://github.com/SpiceXProject/spicex/tree/main/examples/current_source_with_resistor>`_
+
+README:
+
+.. literalinclude:: ../../examples/current_source_with_resistor/README.md
+   :language: md
+
+Script:
+
+.. literalinclude:: ../../examples/current_source_with_resistor/current_source_with_resistor.py
+   :language: python
+
+
 resistors_in_parallel
 ---------------------
 

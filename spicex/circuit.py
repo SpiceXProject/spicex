@@ -31,6 +31,7 @@ class Circuit:
         self.n_nodes = n_nodes
         self._resistors: list[tuple] = []  # (node_a, node_b, resistance)
         self._vsources: list[tuple] = []  # (node_neg, node_pos, voltage)
+        self._csources: list[tuple] = []  # (node_neg, node_pos, current)
 
     def add_resistor(self, node_a: int, node_b: int, resistance: float) -> None:
         """Add a resistor between node_a and node_b."""
@@ -44,6 +45,16 @@ class Circuit:
         V(node_pos) - V(node_neg) = voltage.
         """
         self._vsources.append((node_neg, node_pos, voltage))
+
+    def add_current_source(self, node_neg: int, node_pos: int, current: float) -> None:
+        """
+        Add an independent current source.
+
+        node_neg is the - terminal, node_pos is the + terminal.
+        Conventional current flows from node_neg to node_pos inside the source
+        (i.e., current is injected into node_pos and extracted from node_neg).
+        """
+        self._csources.append((node_neg, node_pos, current))
 
     def solve(self) -> tuple:
         """
@@ -76,6 +87,12 @@ class Circuit:
             if node_neg != 0:
                 B = B.at[node_neg - 1, k].add(-1.0)
             z = z.at[n + k].set(v)
+
+        for node_neg, node_pos, i_val in self._csources:
+            if node_pos != 0:
+                z = z.at[node_pos - 1].add(i_val)
+            if node_neg != 0:
+                z = z.at[node_neg - 1].add(-i_val)
 
         # Assemble full MNA matrix A = [[G, B], [B^T, 0]]
         A = jnp.block(
