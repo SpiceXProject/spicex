@@ -18,8 +18,8 @@
 [status-badge]:        https://www.repostatus.org/badges/latest/active.svg
 [pypi-link]:           https://pypi.org/project/spicex
 [pypi-badge]:          https://img.shields.io/pypi/v/spicex?label=PyPI&logo=pypi
-[workflow-test-link]:  https://github.com/AdirondaxProject/spicex/actions/workflows/test-package.yml
-[workflow-test-badge]: https://github.com/AdirondaxProject/spicex/actions/workflows/test-package.yml/badge.svg?event=push
+[workflow-test-link]:  https://github.com/SpiceXProject/spicex/actions/workflows/test-package.yml
+[workflow-test-badge]: https://github.com/SpiceXProject/spicex/actions/workflows/test-package.yml/badge.svg?event=push
 [ruff-link]:           https://github.com/astral-sh/ruff
 [ruff-badge]:          https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
 [docs-link]:           https://spicex.readthedocs.io
