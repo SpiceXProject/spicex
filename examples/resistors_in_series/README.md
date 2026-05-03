@@ -2,7 +2,7 @@
 
 Philip Mocz (2026)
 
-simple resistors in series example
+Simple resistors in series example
 
 ```
  n1+----[ R1=1 kOhm ]----+n2

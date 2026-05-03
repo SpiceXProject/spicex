@@ -56,6 +56,43 @@ class Circuit:
         """
         self._csources.append((node_neg, node_pos, current))
 
+    def _validate(self) -> None:
+        all_elements = [
+            ("Resistor", self._resistors),
+            ("Voltage source", self._vsources),
+            ("Current source", self._csources),
+        ]
+        adjacency: dict[int, set] = {i: set() for i in range(self.n_nodes)}
+
+        for label, elements in all_elements:
+            for node_a, node_b, _ in elements:
+                for node in (node_a, node_b):
+                    if not (0 <= node < self.n_nodes):
+                        raise ValueError(
+                            f"{label} references node {node}, which is out of range "
+                            f"[0, {self.n_nodes - 1}]"
+                        )
+                if node_a == node_b:
+                    raise ValueError(
+                        f"{label} has both terminals at node {node_a} (self-loop)"
+                    )
+                adjacency[node_a].add(node_b)
+                adjacency[node_b].add(node_a)
+
+        # BFS from ground (node 0) to detect floating nodes
+        visited = {0}
+        queue = [0]
+        while queue:
+            node = queue.pop()
+            for neighbor in adjacency[node]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+
+        floating = sorted(set(range(self.n_nodes)) - visited)
+        if floating:
+            raise ValueError(f"Floating nodes detected (no path to ground): {floating}")
+
     def solve(self) -> tuple:
         """
         Solve the circuit with MNA.
@@ -64,6 +101,8 @@ class Circuit:
             v_nodes: jnp array shape (n_nodes,), node voltages; v_nodes[0] = 0.
             i_vsrc:  jnp array shape (n_vsrc,), current through each voltage source (positive = current flowing from + terminal through the external circuit).
         """
+        self._validate()
+
         n = self.n_nodes - 1
         m = len(self._vsources)
 

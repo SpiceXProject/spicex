@@ -2,8 +2,8 @@
 
 Philip Mocz (2026)
 
-Demonstrates autodiff through the circuit solver to find the load
-resistance R_L that maximizes power delivered to it from a voltage source.
+Autodiff through the circuit solver to find the load resistance R_L
+that maximizes power delivered to it from a voltage source
 
 ```
   n1+----[ R_s=1 kOhm ]----+n2
@@ -13,7 +13,7 @@ resistance R_L that maximizes power delivered to it from a voltage source.
   n0+-----------------------+
 ```
 
-Analytical result: maximum power transfer when `R_L = R_s`
+Analytic result: max power transfer when `R_L = R_s`
 
 Maximum power: `P_max = V_s^2 / (4 * R_s) = 25 mW`
 

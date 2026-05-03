@@ -2,7 +2,7 @@
 
 Philip Mocz (2026)
 
-simple current source with resistor example
+Simple current source with resistor example
 
 ```
  n1+------------+

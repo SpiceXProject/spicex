@@ -2,7 +2,7 @@
 
 Philip Mocz (2026)
 
-simple resistors in parallel example
+Simple resistors in parallel example
 
 ```
  n1+----------+----------+
