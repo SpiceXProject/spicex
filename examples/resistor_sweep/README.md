@@ -2,7 +2,7 @@
 
 Philip Mocz (2026)
 
-Do a paralel sweep through the circuit solver to find the load resistance R_L
+Do a parallel sweep through the circuit solver to find the load resistance R_L
 that maximizes power delivered to it from a voltage source
 
 ```

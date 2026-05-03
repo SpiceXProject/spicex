@@ -23,7 +23,7 @@ spicex
       :class-card: sd-border-0
       :shadow: None
 
-      Fully differentiable end-to-end, ready for
+      End-to-end differentiable, ready for
       gradient-based design optimization and sensitivity analysis
 
    .. grid-item-card:: Modular & Composable
