@@ -21,8 +21,8 @@ def main():
 
     v_nodes, i_vsrc = circuit.solve()
 
-    print(f"Node voltages: {v_nodes}")  # [0, 1.0] V
-    print(f"Voltage source currents: {i_vsrc}")  # [] (no voltage sources)
+    print(f"Node voltages: {v_nodes}")
+    print(f"Voltage source currents: {i_vsrc}")
 
     return v_nodes, i_vsrc
 

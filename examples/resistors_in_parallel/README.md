@@ -4,6 +4,14 @@ Philip Mocz (2026)
 
 simple resistors in parallel example
 
+```
+ n1+----------+----------+
+   |          |          |
+ [ V=5V ] [ R1=1 kOhm ] [ R2=2 kOhm ]
+   |          |          |
+ n0+----------+----------+
+```
+
 
 ## Usage
 
