@@ -2,6 +2,7 @@ from importlib.metadata import version, PackageNotFoundError
 
 from .circuit import Circuit as Circuit
 from .constants import constants as constants
+from .optimize import optimize as optimize
 
 
 """
@@ -18,4 +19,5 @@ except PackageNotFoundError:
 __all__ = [
     "Circuit",
     "constants",
+    "optimize",
 ]
