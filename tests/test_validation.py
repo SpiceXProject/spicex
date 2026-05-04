@@ -113,6 +113,19 @@ def test_capacitor_floating_node():
         c.solve()
 
 
+def test_capacitor_only_path_valid_in_transient():
+    # vsrc(0,1), cap(1,2), cap(2,3), res(3,0): node 2 is floating in DC but valid in transient
+    c = Circuit(4)
+    c.add_voltage_source(0, 1, 1.0)
+    c.add_capacitor(1, 2, 1e-6)
+    c.add_capacitor(2, 3, 2e-6)
+    c.add_resistor(3, 0, 1e3)
+    with pytest.raises(ValueError, match="Floating"):
+        c.solve()
+    t, v_nodes, *_ = c.solve_transient(t_end=1e-3, dt=1e-5)
+    assert v_nodes.shape == (100, 4)
+
+
 def test_valid_circuit_passes_validation():
     # A well-formed circuit should not raise
     c = Circuit(2)

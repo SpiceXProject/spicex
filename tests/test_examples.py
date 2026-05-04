@@ -18,8 +18,8 @@ def test_maximum_power_transfer():
     R_L_opt, P_opt = run_example_main(
         "examples/maximum_power_transfer/maximum_power_transfer.py"
     )
-    assert jnp.isclose(R_L_opt, jnp.array(1e3), rtol=0.01)
-    assert jnp.isclose(P_opt, jnp.array(10.0**2 / (4.0 * 1e3)), rtol=0.01)
+    assert jnp.isclose(R_L_opt, jnp.array(1e3), rtol=1e-3)
+    assert jnp.isclose(P_opt, jnp.array(10.0**2 / (4.0 * 1e3)), rtol=1e-3)
 
 
 def test_resistors_in_parallel():
@@ -58,6 +58,17 @@ def test_inductor_with_resistor():
     assert jnp.allclose(v_nodes, jnp.array([0.0, 5.0, 5.0]), rtol=rel_tol)
     assert jnp.allclose(i_vsrc, jnp.array([5e-3]), rtol=rel_tol)
     assert jnp.allclose(i_inductor, jnp.array([5e-3]), rtol=rel_tol)
+
+
+def test_rc_step_response():
+    # 1 V source, R=1kΩ, C=1µF: τ=1ms, V_C(t)=1−exp(−t/τ), simulate 5ms with dt=0.01ms
+    t, v_nodes, i_vsrc, i_inductor, i_capacitor = run_example_main(
+        "examples/rc_step_response/rc_step_response.py"
+    )
+    tau = 1e-3
+    v_analytic = 1.0 * (1.0 - jnp.exp(-t / tau))
+    assert jnp.allclose(v_nodes[:, 2], v_analytic, rtol=1e-2)
+    assert float(v_nodes[-1, 2]) > 0.99
 
 
 def test_resistor_sweep():
