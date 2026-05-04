@@ -71,6 +71,20 @@ def test_rc_step_response():
     assert float(v_nodes[-1, 2]) > 0.99
 
 
+def test_rlc_series_circuit():
+    # R=2Ω, L=10mH, C=100µF: ω₀=1000 rad/s, ζ=0.1 (underdamped), simulate 50ms
+    t, v_nodes, i_vsrc, i_inductor, i_capacitor = run_example_main(
+        "examples/rlc_series_circuit/rlc_series_circuit.py"
+    )
+    assert v_nodes.shape == (5000, 4)
+    assert i_inductor.shape == (5000, 1)
+    assert i_capacitor.shape == (5000, 1)
+    # Underdamped: V_C must overshoot the 1 V source (analytic peak ≈ 1.73 V)
+    assert float(jnp.max(v_nodes[:, 3])) > 1.5
+    # Settled near V_S at t_end = 50 ms = 5τ (envelope decayed to e^-5 ≈ 0.7%)
+    assert abs(float(v_nodes[-1, 3]) - 1.0) < 0.05
+
+
 def test_resistor_sweep():
     R_L_values, powers = run_example_main("examples/resistor_sweep/resistor_sweep.py")
     V_S = 10.0
