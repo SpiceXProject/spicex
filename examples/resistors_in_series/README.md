@@ -4,12 +4,15 @@ Philip Mocz (2026)
 
 Simple resistors in series example
 
+
+## Circuit
+
 ```
- n1+----[ R1=1 kOhm ]----+n2
-   |                     |
- [ V=5V ]          [ R2=2 kOhm ]
-   |                     |
- n0+---------------------+
+ n1+----[ R1=1kΩ ]----+n2
+   |                   |
+ [ V=5V ]          [ R2=2kΩ ]
+   |                   |
+ n0+-------------------+
 ```
 
 

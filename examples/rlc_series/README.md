@@ -2,18 +2,26 @@
 
 Philip Mocz (2026)
 
-Transient simulation of a series RLC circuit driven by a 1 V step voltage source.
+Transient simulation of a series RLC circuit driven by a 1 V step voltage source
 
 
 ## Circuit
 
 ```
-  +n1---[ L=10mH ]---+n2---[ R=2Ω ]---+n3
-  |                                   |
-[ V=1V ]                            [ C=100µF ]
-  |                                   |
-  n0+---------------------------------+
+ n1+---[ L=10mH ]---+n2---[ R=2Ω ]---+n3
+   |                                 |
+ [ V=1V ]                          [ C=100µF ]
+   |                                 |
+ n0+---------------------------------+
 ```
+
+
+## Usage
+
+```console
+python rlc_series.py [--plot]
+```
+
 
 ## Parameters
 
@@ -45,4 +53,4 @@ V_C_peak = V_S (1 + e^(−απ/ω_d)) ≈ 1.73 V
 
 ## Result
 
-![rlc_series_circuit](rlc_series_circuit.png)
+![rlc_series](rlc_series.png)

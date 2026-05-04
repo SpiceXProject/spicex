@@ -22,7 +22,7 @@ where α = ζω₀,  ω_d = ω₀√(1−ζ²).
 Philip Mocz (2026)
 
 Usage:
-  python rlc_series_circuit.py [--plot]
+  python rlc_series.py [--plot]
 """
 
 R = 2.0  # resistance (Ω)
@@ -76,35 +76,39 @@ def main():
     return t, v_nodes, i_vsrc, i_inductor, i_capacitor
 
 
+def plot(t, v_nodes):
+    import matplotlib.pyplot as plt
+
+    alpha = R / (2.0 * L)
+    omega0 = 1.0 / jnp.sqrt(L * C)
+    omega_d = jnp.sqrt(omega0**2 - alpha**2)
+    v_analytic = V_S * (
+        1.0
+        - jnp.exp(-alpha * t)
+        * (jnp.cos(omega_d * t) + (alpha / omega_d) * jnp.sin(omega_d * t))
+    )
+
+    fig, ax = plt.subplots(figsize=(6, 4))
+    ax.axhline(V_S, color="gray", linewidth=0.8, linestyle=":")
+    ax.plot(t * 1e3, v_analytic, "--", color="black", label="analytic")
+    ax.plot(t * 1e3, v_nodes[:, 3], color="red", label="spicex")
+    ax.set_xlim(0, t_end * 1e3)
+    ax.set_ylim(0, 1.8 * V_S)
+    ax.set_xlabel("Time [ms]")
+    ax.set_ylabel("V_C [V]")
+    ax.set_title("Series RLC Step Response")
+    ax.legend()
+    plt.tight_layout()
+    plt.savefig("rlc_series.png", dpi=300)
+    plt.show()
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--plot", action="store_true", help="Plot V_C vs time")
     args = parser.parse_args()
 
-    t, v_nodes, i_vsrc, i_inductor, i_capacitor = main()
+    t, v_nodes, *_ = main()
 
     if args.plot:
-        import matplotlib.pyplot as plt
-
-        alpha = R / (2.0 * L)
-        omega0 = 1.0 / jnp.sqrt(L * C)
-        omega_d = jnp.sqrt(omega0**2 - alpha**2)
-        v_analytic = V_S * (
-            1.0
-            - jnp.exp(-alpha * t)
-            * (jnp.cos(omega_d * t) + (alpha / omega_d) * jnp.sin(omega_d * t))
-        )
-
-        fig, ax = plt.subplots(figsize=(6, 4))
-        ax.axhline(V_S, color="gray", linewidth=0.8, linestyle=":")
-        ax.plot(t * 1e3, v_analytic, "--", color="black", label="analytic")
-        ax.plot(t * 1e3, v_nodes[:, 3], color="red", label="spicex")
-        ax.set_xlim(0, t_end * 1e3)
-        ax.set_ylim(0, 1.8 * V_S)
-        ax.set_xlabel("Time [ms]")
-        ax.set_ylabel("V_C [V]")
-        ax.set_title("Series RLC Step Response")
-        ax.legend()
-        plt.tight_layout()
-        plt.savefig("rlc_series_circuit.png", dpi=300)
-        plt.show()
+        plot(t, v_nodes)

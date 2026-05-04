@@ -4,6 +4,9 @@ Philip Mocz (2026)
 
 Simple resistors in parallel example
 
+
+## Circuit
+
 ```
  n1+----------+----------+
    |          |          |

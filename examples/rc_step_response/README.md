@@ -5,21 +5,21 @@ Philip Mocz (2026)
 Transient simulation of an RC circuit driven by a 1 V step voltage source
 
 
+## Circuit
+
+```
+ n1+-----[ R=1kΩ ]-----+n2
+   |                   |
+ [ V=1V ]            [ C=1µF ]
+   |                   |
+ n0+-------------------+
+```
+
+
 ## Usage
 
 ```console
 python rc_step_response.py
-```
-
-
-## Circuit
-
-```
-  n1+------[ R=1kΩ ]------+n2
-    |                     |
-  [ V=1V ]              [ C=1µF ]
-    |                     |
-  n0+---------------------+
 ```
 
 

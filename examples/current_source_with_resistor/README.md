@@ -2,12 +2,15 @@
 
 Philip Mocz (2026)
 
-Simple current source with resistor example
+Simple current source with resistor
+
+
+## Circuit
 
 ```
  n1+------------+
    |            |
- [ I=1 mA ]   [ R=1 kOhm ]
+ [ I=1mA ]    [ R=1kΩ ]
    |            |
  n0+------------+
 ```
