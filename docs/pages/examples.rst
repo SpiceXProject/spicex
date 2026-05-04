@@ -67,3 +67,24 @@ Script:
 
 .. literalinclude:: ../../examples/resistors_in_series/resistors_in_series.py
    :language: python
+
+
+rlc_series
+----------
+
+See on GitHub: `examples/rlc_series <https://github.com/SpiceXProject/spicex/tree/main/examples/rlc_series>`_
+
+README:
+
+.. literalinclude:: ../../examples/rlc_series/README.md
+   :language: md
+
+Script:
+
+.. literalinclude:: ../../examples/rlc_series/rlc_series.py
+   :language: python
+
+.. figure:: ../../examples/rlc_series/rlc_series.png
+  :width: 400px
+  :align: center
+  :alt: rlc_series
