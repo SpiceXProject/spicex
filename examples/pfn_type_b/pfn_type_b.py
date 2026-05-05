@@ -92,8 +92,8 @@ def main():
     idx90 = int(jnp.argmax(i_load >= 0.90 * i_peak))
     rise_us = float((t[idx90] - t[idx10]) * 1e6)
 
-    print(f"Z₀          = {Z0 * 1e3:.2f} mΩ  (PFN characteristic impedance)")
-    print(f"V₀          = {V0:.1f} V  (initial charge voltage)")
+    print(f"Z0          = {Z0 * 1e3:.2f} mΩ  (PFN characteristic impedance)")
+    print(f"V0          = {V0:.1f} V  (initial charge voltage)")
     print(f"T_pulse     = {T_pulse * 1e3:.3f} ms  (approx. pulse duration)")
     print()
     print(f"Peak current : {i_peak:.1f} A")
