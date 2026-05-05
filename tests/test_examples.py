@@ -98,3 +98,24 @@ def test_resistor_sweep():
     # Peak should be near R_L = R_S = 1 kΩ
     idx_peak = int(jnp.argmax(powers))
     assert 0.95 * R_S <= float(R_L_values[idx_peak]) <= 1.05 * R_S
+
+
+def test_pfn_type_b():
+    # PFN Type B: 5-section LC ladder into R_load=100mΩ, I_target=800 A
+    t, v_nodes, i_load = run_example_main("examples/pfn_type_b/pfn_type_b.py")
+
+    # Peak load current should be near 800 A
+    i_peak = float(jnp.max(i_load))
+    assert 750.0 <= i_peak <= 850.0
+
+    # Flat-top (15%--85% of T_pulse) mean current near target
+    L_total = 6.6e-6 + 5.4e-6 + 5.6e-6 + 6.5e-6 + 9.3e-6
+    C_total = 250e-6 + 250e-6 + 300e-6 + 350e-6 + 800e-6
+    T_pulse = 2.0 * float(jnp.sqrt(jnp.array(L_total * C_total)))
+    mask = (t >= 0.15 * T_pulse) & (t <= 0.85 * T_pulse)
+    i_mean = float(jnp.mean(i_load[mask]))
+    assert 750.0 <= i_mean <= 850.0
+
+    # Flatness within ±10%
+    flat_pct = float(100.0 * jnp.max(jnp.abs(i_load[mask] - i_mean)) / i_mean)
+    assert flat_pct < 10.0

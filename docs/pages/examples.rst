@@ -37,6 +37,33 @@ Script:
    :language: python
 
 
+pfn_type_b
+----------
+
+See on GitHub: `examples/pfn_type_b <https://github.com/SpiceXProject/spicex/tree/main/examples/pfn_type_b>`_
+
+README:
+
+.. literalinclude:: ../../examples/pfn_type_b/README.md
+   :language: md
+
+Script:
+
+.. literalinclude:: ../../examples/pfn_type_b/pfn_type_b.py
+   :language: python
+
+
+Script:
+
+.. literalinclude:: ../../examples/pfn_type_b/rlc_series.py
+   :language: python
+
+.. figure:: ../../examples/pfn_type_b/pfn_type_b.png
+  :width: 400px
+  :align: center
+  :alt: pfn_type_b
+
+
 resistors_in_parallel
 ---------------------
 
