@@ -59,7 +59,7 @@ Script:
    :language: python
 
 .. figure:: ../../examples/pfn_type_b/pfn_type_b.png
-  :width: 400px
+  :width: 480px
   :align: center
   :alt: pfn_type_b
 
@@ -112,6 +112,6 @@ Script:
    :language: python
 
 .. figure:: ../../examples/rlc_series/rlc_series.png
-  :width: 400px
+  :width: 480px
   :align: center
   :alt: rlc_series
