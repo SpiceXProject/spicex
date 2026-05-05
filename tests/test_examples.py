@@ -100,6 +100,34 @@ def test_resistor_sweep():
     assert 0.95 * R_S <= float(R_L_values[idx_peak]) <= 1.05 * R_S
 
 
+def test_pfn_optimize():
+    # PFN optimization: 5-section LC, equal inductors -> optimized, I_target=800 A
+    t, i_before, i_after = run_example_main("examples/pfn_optimize/pfn_optimize.py")
+
+    L_total = 33.4e-6
+    C_section = 390e-6
+    C_total = 5 * C_section
+    T_pulse = 2.0 * float(jnp.sqrt(jnp.array(L_total * C_total)))
+    mask = (t >= 0.15 * T_pulse) & (t <= 0.85 * T_pulse)
+
+    # Peak current in a physically reasonable range (equal-L case overshoots more)
+    assert 750.0 <= float(jnp.max(i_before)) <= 950.0
+    assert 750.0 <= float(jnp.max(i_after)) <= 870.0
+
+    def flatness_pct(i_load):
+        i_flat = i_load[mask]
+        i_mean = float(jnp.mean(i_flat))
+        return float(100.0 * jnp.max(jnp.abs(i_flat - i_mean)) / i_mean)
+
+    flat_before = flatness_pct(i_before)
+    flat_after = flatness_pct(i_after)
+
+    # Optimization must improve flatness
+    assert flat_after < flat_before
+    # Optimized flatness should be within ±5% of I_target
+    assert flat_after < 5.0
+
+
 def test_pfn_type_b():
     # PFN Type B: 5-section LC ladder into R_load=100mΩ, I_target=800 A
     t, v_nodes, i_load = run_example_main("examples/pfn_type_b/pfn_type_b.py")

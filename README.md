@@ -66,6 +66,14 @@ Check out the [`examples/`](https://github.com/SpiceXProject/spicex/tree/main/ex
   </a>
 </p>
 
+* [Pulse-Forming Network: Circuit Optimization](https://github.com/SpiceXProject/spicex/tree/main/examples/pfn_optimize)
+
+<p align="center">
+  <a href="https://github.com/SpiceXProject/spicex/tree/main/examples/pfn_optimize">
+    <img src="examples/pfn_optimize/pfn_optimize.png" alt="pfn_optimize" width="400"/>
+  </a>
+</p>
+
 
 ## Links
 

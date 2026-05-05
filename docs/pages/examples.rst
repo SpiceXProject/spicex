@@ -37,6 +37,27 @@ Script:
    :language: python
 
 
+pfn_optimize
+------------
+
+See on GitHub: `examples/pfn_optimize <https://github.com/SpiceXProject/spicex/tree/main/examples/pfn_optimize>`_
+
+README:
+
+.. literalinclude:: ../../examples/pfn_optimize/README.md
+   :language: md
+
+Script:
+
+.. literalinclude:: ../../examples/pfn_optimize/pfn_optimize.py
+   :language: python
+
+.. figure:: ../../examples/pfn_optimize/pfn_optimize.png
+  :width: 480px
+  :align: center
+  :alt: pfn_optimize
+
+
 pfn_type_b
 ----------
 
@@ -46,12 +67,6 @@ README:
 
 .. literalinclude:: ../../examples/pfn_type_b/README.md
    :language: md
-
-Script:
-
-.. literalinclude:: ../../examples/pfn_type_b/pfn_type_b.py
-   :language: python
-
 
 Script:
 
