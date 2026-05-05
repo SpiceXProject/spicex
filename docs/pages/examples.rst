@@ -55,7 +55,7 @@ Script:
 
 Script:
 
-.. literalinclude:: ../../examples/pfn_type_b/rlc_series.py
+.. literalinclude:: ../../examples/pfn_type_b/pfn_type_b.py
    :language: python
 
 .. figure:: ../../examples/pfn_type_b/pfn_type_b.png

@@ -137,13 +137,17 @@ class Circuit:
         Solve the circuit with MNA.
 
         Returns:
+
             v_nodes:    jnp array shape (n_nodes,), node voltages; v_nodes[0] = 0.
+
             i_vsrc:     jnp array shape (n_vsrc,), current through each voltage
                         source (positive = current flowing from + terminal through
                         the external circuit).
+
             i_inductor:  jnp array shape (n_inductor,), current through each
                          inductor (positive = current flowing from node_a through
                          the inductor to node_b).
+
             i_capacitor: jnp array shape (n_capacitor,), current through each
                          capacitor; always zero in DC analysis.
         """
@@ -227,23 +231,33 @@ class Circuit:
         Capacitors and inductors are replaced with backward Euler companion models:
           - Capacitor: conductance G_eq = C/dt plus history current I_eq = G_eq*V_prev.
           - Inductor:  conductance G_eq = dt/L plus history current I_eq = i_L_prev.
+
         Inductors are NOT in the B matrix here; they contribute to G only.
 
         The time loop uses jax.lax.scan, keeping the solver JAX-differentiable.
 
         Args:
+
             t_end: Simulation end time (s).
+
             dt:    Time step (s).
+
             v0:    Initial node voltages shape (n_nodes,). Defaults to zeros.
                    v0[0] must be 0 (ground).
+
             i_L0:  Initial inductor currents shape (n_inductor,). Defaults to zeros.
 
         Returns:
+
             t:           shape (n_steps,), time points dt, 2*dt, …
+
             v_nodes:     shape (n_steps, n_nodes), node voltages; column 0 = 0.
+
             i_vsrc:      shape (n_steps, n_vsrc), voltage-source currents.
+
             i_inductor:  shape (n_steps, n_inductor), inductor currents
                          (positive = node_a to node_b).
+
             i_capacitor: shape (n_steps, n_capacitor), capacitor currents
                          (positive = node_a to node_b, i.e. C*dV/dt).
         """

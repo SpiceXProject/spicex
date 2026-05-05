@@ -109,7 +109,7 @@ def main():
 def plot(t, v_nodes, i_load):
     import matplotlib.pyplot as plt
 
-    fig, ax = plt.subplots(figsize=(8, 4))
+    fig, ax = plt.subplots(figsize=(6, 4))
 
     # ±2.5% flatness band around target
     ax.axhspan(

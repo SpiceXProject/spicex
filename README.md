@@ -34,8 +34,6 @@ A differentiable SPICE circuit solver in JAX
 
 Author: [Philip Mocz (@pmocz)](https://github.com/pmocz/)
 
-⚠️ SpiceX is currently being built and is not yet ready for use. Check back later ⚠️
-
 
 ## Install SpiceX
 
@@ -51,6 +49,14 @@ or see the docs for how to [build from source](https://spicex.readthedocs.io/en/
 ## Examples
 
 Check out the [`examples/`](https://github.com/SpiceXProject/spicex/tree/main/examples/) directory for demonstrations of using SpiceX.
+
+* Pulse-Forming Network: Type B
+
+<p align="center">
+  <a href="https://github.com/SpiceXProject/spicex/tree/main/examples/pfn_type_b">
+    <img src="examples/pfn_type_b/pfn_type_b.png" alt="pfn_type_b" width="300"/>
+  </a>
+</p>
 
 
 ## Links

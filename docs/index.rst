@@ -10,7 +10,6 @@ spicex
 
       **spicex** is a differentiable SPICE circuit solver implemented in JAX.
 
-⚠️ SpiceX is currently being built and is not yet ready for use. Check back later! ⚠️
 
 .. grid:: 3
    :class-container: product-offerings
@@ -63,6 +62,23 @@ spicex
       :link: pages/examples
       :link-type: doc
       :class-card: examples
+
+
+.. list-table::
+   :widths: 49 49 
+   :header-rows: 0
+
+   * - .. figure:: ../examples/rlc_series/rlc_series.png
+         :width: 300px
+         :align: center
+         :alt: rlc_series
+         :target: pages/examples.html#rlc-series
+
+     - .. figure:: ../examples/pfn_type_b/pfn_type_b.png
+         :width: 300px
+         :align: center
+         :alt: pfn_type_b
+         :target: pages/examples.html#pfn-type-b
 
 
 .. toctree::
