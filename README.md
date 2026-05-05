@@ -50,19 +50,19 @@ or see the docs for how to [build from source](https://spicex.readthedocs.io/en/
 
 Check out the [`examples/`](https://github.com/SpiceXProject/spicex/tree/main/examples/) directory for demonstrations of using SpiceX.
 
-* RLC circuit
+* [RLC circuit](https://github.com/SpiceXProject/spicex/tree/main/examples/rlc_series)
 
 <p align="center">
   <a href="https://github.com/SpiceXProject/spicex/tree/main/examples/rlc_series">
-    <img src="examples/rlc_series/rlc_series.png" alt="rlc_series" width="300"/>
+    <img src="examples/rlc_series/rlc_series.png" alt="rlc_series" width="400"/>
   </a>
 </p>
 
-* Pulse-Forming Network: Type B
+* [Pulse-Forming Network: Type B](https://github.com/SpiceXProject/spicex/tree/main/examples/pfn_type_b)
 
 <p align="center">
   <a href="https://github.com/SpiceXProject/spicex/tree/main/examples/pfn_type_b">
-    <img src="examples/pfn_type_b/pfn_type_b.png" alt="pfn_type_b" width="300"/>
+    <img src="examples/pfn_type_b/pfn_type_b.png" alt="pfn_type_b" width="400"/>
   </a>
 </p>
 
