@@ -65,7 +65,7 @@ spicex
 
 
 .. list-table::
-   :widths: 49 49 
+   :widths: 49 49
    :header-rows: 0
 
    * - .. figure:: ../examples/rlc_series/rlc_series.png

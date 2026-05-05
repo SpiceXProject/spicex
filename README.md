@@ -50,6 +50,14 @@ or see the docs for how to [build from source](https://spicex.readthedocs.io/en/
 
 Check out the [`examples/`](https://github.com/SpiceXProject/spicex/tree/main/examples/) directory for demonstrations of using SpiceX.
 
+* RLC circuit
+
+<p align="center">
+  <a href="https://github.com/SpiceXProject/spicex/tree/main/examples/rlc_series">
+    <img src="examples/rlc_series/rlc_series.png" alt="rlc_series" width="300"/>
+  </a>
+</p>
+
 * Pulse-Forming Network: Type B
 
 <p align="center">
