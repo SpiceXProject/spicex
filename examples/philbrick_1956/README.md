@@ -9,18 +9,34 @@ patented by Philbrick in 1956.
 ## Circuit
 
 ```
- n1+--[ RSRC=1k ]--+n2---[ C1=10nF ]-----------------+n3 (probe V)
-   |                |                                 |
- [VSRC=1V]          |--[ C2=20nF ]---+n4            [R2=3.3Meg]
-   |                |                 |               |
-   |                +--[ C3=50nF ]---+n5    n4+--[R3=1.0Meg]--+n5
-   |                                               |
- n0+------------------------------------------[R4=510k]
-                                                   |
-                                          n3+---[RLOAD=100Meg]
-                                                   |
- n0+-----------------------------------------------+
+                             n3 (probe, V)
+                              |
+n2+(bus)--+---[ C1 10nF ]-----+---------[ RLOAD 100Meg ]---+
+  |       |                   |                            |
+  |       |               [ R2 3.3Meg ]                    |
+  |       |                   |                            |
+  |       |                   |                            |
+  |       +---[ C2 20nF ]-----+n4                          |
+  |       |                   |                            |
+  |       |              [ R3 1.0Meg ]                     |
+  |       |                   |                            |
+  |       |                   |                            |
+  |       +---[ C3 50nF ]-----+n5                          |
+  |                           |                            |
+[ RSRC 1k ]                [ R4 510k ]                     |
+  |                           |                            |
+ n1                         n0+----------------------------+
+  |
+[ VSRC 1V ]
+  |
+ n0
 ```
+
+The R2-R3-R4 chain is a single vertical spine on the right; n4 and n5 are
+each a single junction where C2 and C3 tap into that spine (not separate
+nodes) — R2 runs from n3 down to n4, R3 from n4 down to n5, R4 from n5
+down to ground. n2 is the bus feeding all three capacitors' left plates
+from RSRC.
 
 Node 2 (the RSRC/C1/C2/C3 bus) reaches the R2-R3-R4 ladder and probe node
 n3 only through capacitors, so the network has no DC path: gain -> 0 as
