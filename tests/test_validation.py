@@ -1,3 +1,4 @@
+import jax.numpy as jnp
 import pytest
 from spicex import Circuit
 
@@ -133,3 +134,44 @@ def test_valid_circuit_passes_validation():
     c.add_resistor(0, 1, 1000.0)
     v_nodes, *_ = c.solve()
     assert v_nodes[1] == pytest.approx(5.0)
+
+
+def test_capacitor_only_path_valid_in_ac():
+    # vsrc(0,1), cap(1,2), cap(2,3), res(3,0): node 2 is floating in DC but
+    # valid in AC, since capacitors carry a finite admittance at omega != 0.
+    c = Circuit(4)
+    c.add_voltage_source(0, 1, 1.0)
+    c.add_capacitor(1, 2, 1e-6)
+    c.add_capacitor(2, 3, 2e-6)
+    c.add_resistor(3, 0, 1e3)
+    with pytest.raises(ValueError, match="Floating"):
+        c.solve()
+    v_nodes, i_vsrc = c.solve_ac(omega=1e3)
+    assert v_nodes.shape == (4,)
+    assert i_vsrc.shape == (1,)
+
+
+def test_solve_ac_matches_analytic_rc_low_pass():
+    # V-R-C low-pass: |H(jw)| = 1/sqrt(1+(wRC)^2), phase = -atan(wRC)
+    R = 1e3
+    C = 1e-6
+    freq = jnp.array([10.0, 100.0, 1000.0])
+    omega = 2.0 * jnp.pi * freq
+
+    def probe(w):
+        c = Circuit(3)
+        c.add_voltage_source(0, 1, 1.0)
+        c.add_resistor(1, 2, R)
+        c.add_capacitor(2, 0, C)
+        v_nodes, _ = c.solve_ac(w)
+        return v_nodes[2]
+
+    v_probe = jnp.array([probe(float(w)) for w in omega])
+    mag = jnp.abs(v_probe)
+    phase = jnp.angle(v_probe)
+
+    analytic_mag = 1.0 / jnp.sqrt(1.0 + (omega * R * C) ** 2)
+    analytic_phase = -jnp.arctan(omega * R * C)
+
+    assert jnp.allclose(mag, analytic_mag, rtol=1e-6)
+    assert jnp.allclose(phase, analytic_phase, rtol=1e-6)

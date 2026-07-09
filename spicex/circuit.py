@@ -218,6 +218,98 @@ class Circuit:
         v_nodes = jnp.concatenate([jnp.zeros(1), v_internal])
         return v_nodes, i_vsrc, i_inductor, i_capacitor
 
+    def solve_ac(self, omega: float) -> tuple:
+        """
+        Solve the circuit for sinusoidal steady state (phasor/AC analysis)
+        at angular frequency omega (rad/s).
+
+        Voltage and current source values are treated as complex phasor
+        amplitudes (a real Python/JAX float is a phasor with zero phase).
+
+        Unlike solve() and solve_transient(), capacitors and inductors are
+        folded directly into the admittance matrix G as Y_C = j*omega*C and
+        Y_L = 1/(j*omega*L). No branch-current unknowns are needed for them:
+        in MNA, branch currents are only required to enforce a voltage
+        constraint, which is the case for voltage sources but not for linear
+        admittances in the frequency domain.
+
+        Returns:
+
+            v_nodes: complex jnp array shape (n_nodes,), phasor node
+                     voltages; v_nodes[0] = 0.
+
+            i_vsrc:  complex jnp array shape (n_vsrc,), phasor current
+                     through each voltage source (SPICE convention:
+                     positive = current flowing from + terminal through the
+                     external circuit).
+        """
+        self._validate(include_capacitors_in_graph=True)
+
+        n = self.n_nodes - 1
+        m_v = len(self._vsources)
+
+        G = jnp.zeros((n, n), dtype=complex)
+        B = jnp.zeros((n, m_v), dtype=complex)
+        z = jnp.zeros(n + m_v, dtype=complex)
+
+        for node_a, node_b, r in self._resistors:
+            y = 1.0 / r
+            if node_a != 0:
+                G = G.at[node_a - 1, node_a - 1].add(y)
+            if node_b != 0:
+                G = G.at[node_b - 1, node_b - 1].add(y)
+            if node_a != 0 and node_b != 0:
+                G = G.at[node_a - 1, node_b - 1].add(-y)
+                G = G.at[node_b - 1, node_a - 1].add(-y)
+
+        for node_a, node_b, c in self._capacitors:
+            y = 1j * omega * c
+            if node_a != 0:
+                G = G.at[node_a - 1, node_a - 1].add(y)
+            if node_b != 0:
+                G = G.at[node_b - 1, node_b - 1].add(y)
+            if node_a != 0 and node_b != 0:
+                G = G.at[node_a - 1, node_b - 1].add(-y)
+                G = G.at[node_b - 1, node_a - 1].add(-y)
+
+        for node_a, node_b, ind in self._inductors:
+            y = 1.0 / (1j * omega * ind)
+            if node_a != 0:
+                G = G.at[node_a - 1, node_a - 1].add(y)
+            if node_b != 0:
+                G = G.at[node_b - 1, node_b - 1].add(y)
+            if node_a != 0 and node_b != 0:
+                G = G.at[node_a - 1, node_b - 1].add(-y)
+                G = G.at[node_b - 1, node_a - 1].add(-y)
+
+        for k, (node_neg, node_pos, v) in enumerate(self._vsources):
+            if node_pos != 0:
+                B = B.at[node_pos - 1, k].add(1.0)
+            if node_neg != 0:
+                B = B.at[node_neg - 1, k].add(-1.0)
+            z = z.at[n + k].set(v)
+
+        for node_neg, node_pos, i_val in self._csources:
+            if node_pos != 0:
+                z = z.at[node_pos - 1].add(i_val)
+            if node_neg != 0:
+                z = z.at[node_neg - 1].add(-i_val)
+
+        A = jnp.block(
+            [
+                [G, B],
+                [B.T, jnp.zeros((m_v, m_v), dtype=complex)],
+            ]
+        )
+
+        x = jnp.linalg.solve(A, z)
+
+        v_internal = x[:n]
+        i_vsrc = -x[n:]
+
+        v_nodes = jnp.concatenate([jnp.zeros(1, dtype=complex), v_internal])
+        return v_nodes, i_vsrc
+
     def solve_transient(
         self,
         t_end: float,

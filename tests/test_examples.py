@@ -128,6 +128,19 @@ def test_pfn_optimize():
     assert flat_after < 5.0
 
 
+def test_philbrick_1956():
+    # Three-R three-C network
+    freq, v_probe = run_example_main("examples/philbrick_1956/philbrick_1956.py")
+    gain = jnp.abs(v_probe)
+
+    assert float(gain[0]) < 0.01  # ~0 at 1 mHz
+    assert jnp.isclose(gain[-1], 1.0, rtol=1e-2)  # ~1 at 1 kHz
+
+    peak_idx = int(jnp.argmax(gain))
+    assert 1.1 <= float(gain[peak_idx]) <= 1.25
+    assert 2.0 <= float(freq[peak_idx]) <= 10.0
+
+
 def test_pfn_type_b():
     # PFN Type B: 5-section LC ladder into R_load=100mΩ, I_target=800 A
     t, v_nodes, i_load = run_example_main("examples/pfn_type_b/pfn_type_b.py")

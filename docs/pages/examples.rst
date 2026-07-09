@@ -79,6 +79,27 @@ Script:
   :alt: pfn_type_b
 
 
+philbrick_1956
+---------------
+
+See on GitHub: `examples/philbrick_1956 <https://github.com/SpiceXProject/spicex/tree/main/examples/philbrick_1956>`_
+
+README:
+
+.. literalinclude:: ../../examples/philbrick_1956/README.md
+   :language: md
+
+Script:
+
+.. literalinclude:: ../../examples/philbrick_1956/philbrick_1956.py
+   :language: python
+
+.. figure:: ../../examples/philbrick_1956/philbrick_1956.png
+  :width: 480px
+  :align: center
+  :alt: philbrick_1956
+
+
 resistors_in_parallel
 ---------------------
 
