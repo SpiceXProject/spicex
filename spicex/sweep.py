@@ -2,8 +2,9 @@
 Parameter sweep utility for spicex circuits
 """
 
-import jax
 from collections.abc import Callable
+
+import jax
 
 
 def sweep(fn: Callable, *param_arrays, jit: bool = True):

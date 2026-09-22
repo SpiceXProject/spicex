@@ -1,5 +1,6 @@
-from spicex.utils import run_example_main
 import jax.numpy as jnp
+
+from spicex.utils import run_example_main
 
 rel_tol = 1e-8
 

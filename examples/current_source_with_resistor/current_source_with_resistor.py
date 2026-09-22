@@ -1,4 +1,5 @@
 import jax
+
 import spicex
 
 # switch on for double precision
