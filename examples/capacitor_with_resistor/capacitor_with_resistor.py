@@ -21,7 +21,7 @@ def main():
     circuit.add_resistor(1, 0, 1e3)  # 1 kΩ: node 1 --> ground
     circuit.add_capacitor(1, 0, 10e-6)  # 10 µF: node 1 --> ground (parallel)
 
-    v_nodes, i_vsrc, i_inductor, i_capacitor = circuit.solve()
+    v_nodes, i_vsrc, _i_inductor, i_capacitor = circuit.solve()
 
     print("Node voltages:", v_nodes)
     print("Current through voltage source:", i_vsrc)

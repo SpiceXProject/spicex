@@ -88,7 +88,7 @@ def plot(freq, v_probe):
 
     gain = jnp.abs(v_probe)
 
-    fig, ax = plt.subplots(figsize=(6, 4))
+    _fig, ax = plt.subplots(figsize=(6, 4))
     ax.axhline(1.0, color="gray", linewidth=0.8, linestyle=":")
     ax.plot(freq, gain, color="red", label="spicex")
     ax.set_xscale("log")

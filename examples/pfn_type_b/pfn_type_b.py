@@ -73,9 +73,7 @@ def main():
     v0 = jnp.array([0.0, 0.0, V0, V0, V0, V0, V0, 0.0, 0.0, 0.0, 0.0, 0.0])
     i_L0 = jnp.zeros(5)
 
-    t, v_nodes, i_vsrc, i_inductor, i_capacitor = circuit.solve_transient(
-        t_end=t_end, dt=dt, v0=v0, i_L0=i_L0
-    )
+    t, v_nodes, *_ = circuit.solve_transient(t_end=t_end, dt=dt, v0=v0, i_L0=i_L0)
 
     i_load = v_nodes[:, 1] / R_load  # load current (A)
 
@@ -111,7 +109,7 @@ def main():
 def plot(t, v_nodes, i_load):
     import matplotlib.pyplot as plt
 
-    fig, ax = plt.subplots(figsize=(6, 4))
+    _fig, ax = plt.subplots(figsize=(6, 4))
 
     # ±2.5% flatness band around target
     ax.axhspan(

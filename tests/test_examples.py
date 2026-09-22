@@ -63,9 +63,7 @@ def test_inductor_with_resistor():
 
 def test_rc_step_response():
     # 1 V source, R=1kΩ, C=1µF: τ=1ms, V_C(t)=1−exp(−t/τ), simulate 5ms with dt=0.01ms
-    t, v_nodes, i_vsrc, i_inductor, i_capacitor = run_example_main(
-        "examples/rc_step_response/rc_step_response.py"
-    )
+    t, v_nodes, *_ = run_example_main("examples/rc_step_response/rc_step_response.py")
     tau = 1e-3
     v_analytic = 1.0 * (1.0 - jnp.exp(-t / tau))
     assert jnp.allclose(v_nodes[:, 2], v_analytic, rtol=1e-2)
@@ -74,7 +72,7 @@ def test_rc_step_response():
 
 def test_rlc_series():
     # R=2Ω, L=10mH, C=100µF: ω₀=1000 rad/s, ζ=0.1 (underdamped), simulate 50ms
-    t, v_nodes, i_vsrc, i_inductor, i_capacitor = run_example_main(
+    _t, v_nodes, _i_vsrc, i_inductor, i_capacitor = run_example_main(
         "examples/rlc_series/rlc_series.py"
     )
     assert v_nodes.shape == (5000, 4)
@@ -144,7 +142,7 @@ def test_philbrick_1956():
 
 def test_pfn_type_b():
     # PFN Type B: 5-section LC ladder into R_load=100mΩ, I_target=800 A
-    t, v_nodes, i_load = run_example_main("examples/pfn_type_b/pfn_type_b.py")
+    t, _v_nodes, i_load = run_example_main("examples/pfn_type_b/pfn_type_b.py")
 
     # Peak load current should be near 800 A
     i_peak = float(jnp.max(i_load))

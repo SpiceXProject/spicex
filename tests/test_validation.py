@@ -124,7 +124,7 @@ def test_capacitor_only_path_valid_in_transient():
     c.add_resistor(3, 0, 1e3)
     with pytest.raises(ValueError, match="Floating"):
         c.solve()
-    t, v_nodes, *_ = c.solve_transient(t_end=1e-3, dt=1e-5)
+    _t, v_nodes, *_ = c.solve_transient(t_end=1e-3, dt=1e-5)
     assert v_nodes.shape == (100, 4)
 
 

@@ -90,7 +90,7 @@ def plot(t, v_nodes):
         * (jnp.cos(omega_d * t) + (alpha / omega_d) * jnp.sin(omega_d * t))
     )
 
-    fig, ax = plt.subplots(figsize=(6, 4))
+    _fig, ax = plt.subplots(figsize=(6, 4))
     ax.axhline(V_S, color="gray", linewidth=0.8, linestyle=":")
     ax.plot(t * 1e3, v_analytic, "--", color="black", label="analytic")
     ax.plot(t * 1e3, v_nodes[:, 3], color="red", label="spicex")
