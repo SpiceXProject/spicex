@@ -175,3 +175,49 @@ def test_solve_ac_matches_analytic_rc_low_pass():
 
     assert jnp.allclose(mag, analytic_mag, rtol=1e-6)
     assert jnp.allclose(phase, analytic_phase, rtol=1e-6)
+
+
+def _rlc():
+    circuit = Circuit(n_nodes=4)
+    circuit.add_voltage_source(0, 1, 1.0)
+    circuit.add_inductor(1, 2, 10e-3)
+    circuit.add_resistor(2, 3, 2.0)
+    circuit.add_capacitor(3, 0, 100e-6)
+    return circuit
+
+
+def test_transient_step_matches_solve_transient():
+    dt, n_steps = 1.0e-5, 200
+
+    _, v_nodes, _, _, _ = _rlc().solve_transient(t_end=n_steps * dt, dt=dt)
+
+    circuit = _rlc()
+    v = jnp.zeros(circuit.n_nodes)
+    i_L = jnp.zeros(1)
+    stepped = []
+    for _ in range(n_steps):
+        v, _, i_L, _ = circuit.transient_step(v, i_L, dt)
+        stepped.append(v)
+
+    assert jnp.allclose(jnp.stack(stepped), v_nodes, rtol=1e-12, atol=1e-12)
+
+
+def test_transient_step_source_override_drives_the_circuit():
+    dt, n_steps = 1.0e-5, 200
+
+    _, v_nodes, _, _, _ = _rlc().solve_transient(t_end=n_steps * dt, dt=dt)
+
+    def stepped(source_of):
+        circuit = _rlc()
+        v = jnp.zeros(circuit.n_nodes)
+        i_L = jnp.zeros(1)
+        out = []
+        for k in range(n_steps):
+            v, _, i_L, _ = circuit.transient_step(
+                v, i_L, dt, vsrc_values=jnp.array([source_of(k)])
+            )
+            out.append(v)
+        return jnp.stack(out)
+
+    assert jnp.allclose(stepped(lambda k: 1.0), v_nodes, rtol=1e-12, atol=1e-12)
+    assert not jnp.allclose(stepped(lambda k: 1.0 + k * dt), v_nodes, atol=1e-6)
