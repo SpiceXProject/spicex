@@ -8,3 +8,8 @@ Circuit
     :members:
     :undoc-members:
 
+
+Events
+------
+
+.. autofunction:: spicex.first_crossing

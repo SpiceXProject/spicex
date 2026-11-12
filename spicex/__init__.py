@@ -2,6 +2,7 @@ from importlib.metadata import PackageNotFoundError, version
 
 from .circuit import Circuit as Circuit
 from .constants import constants as constants
+from .events import first_crossing as first_crossing
 from .optimize import optimize as optimize
 from .sweep import sweep as sweep
 
@@ -19,6 +20,7 @@ except PackageNotFoundError:
 __all__ = [
     "Circuit",
     "constants",
+    "first_crossing",
     "optimize",
     "sweep",
 ]

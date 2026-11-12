@@ -5,6 +5,27 @@ The `examples/ <https://github.com/SpiceXProject/spicex/tree/main/examples>`_ di
 a collection of scripts demonstrating various applications of spicex.
 
 
+charged_line_pulser
+-------------------
+
+See on GitHub: `examples/charged_line_pulser <https://github.com/SpiceXProject/spicex/tree/main/examples/charged_line_pulser>`_
+
+README:
+
+.. literalinclude:: ../../examples/charged_line_pulser/README.md
+   :language: md
+
+Script:
+
+.. literalinclude:: ../../examples/charged_line_pulser/charged_line_pulser.py
+   :language: python
+
+.. figure:: ../../examples/charged_line_pulser/charged_line_pulser.png
+  :width: 480px
+  :align: center
+  :alt: charged_line_pulser
+
+
 current_source_with_resistor
 ----------------------------
 
@@ -151,3 +172,24 @@ Script:
   :width: 480px
   :align: center
   :alt: rlc_series
+
+
+z_pinch_snowplow
+----------------
+
+See on GitHub: `examples/z_pinch_snowplow <https://github.com/SpiceXProject/spicex/tree/main/examples/z_pinch_snowplow>`_
+
+README:
+
+.. literalinclude:: ../../examples/z_pinch_snowplow/README.md
+   :language: md
+
+Script:
+
+.. literalinclude:: ../../examples/z_pinch_snowplow/z_pinch_snowplow.py
+   :language: python
+
+.. figure:: ../../examples/z_pinch_snowplow/z_pinch_snowplow.png
+  :width: 480px
+  :align: center
+  :alt: z_pinch_snowplow

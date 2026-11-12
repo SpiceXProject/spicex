@@ -159,3 +159,52 @@ def test_pfn_type_b():
     # Flatness within ±10%
     flat_pct = float(100.0 * jnp.max(jnp.abs(i_load[mask] - i_mean)) / i_mean)
     assert flat_pct < 10.0
+
+
+def test_z_pinch_snowplow():
+    # Marx generator + 0D snowplow load coupled through a variable inductor
+    results = run_example_main("examples/z_pinch_snowplow/z_pinch_snowplow.py")
+    m = results["metrics"]
+
+    # Reference: scipy DOP853 at rtol=1e-12 gives t_pinch = 118.321 ns,
+    # I_peak = 789.20 kA, I(t_pinch) = 564.64 kA
+    assert abs(m["t_pinch"] - 118.321e-9) < 0.05e-9
+    assert abs(m["I_peak"] - 789.20e3) / 789.20e3 < 1e-3
+    assert abs(m["I_pinch"] - 564.64e3) / 564.64e3 < 2e-3
+
+    # Energy released by the capacitor = magnetic + resistive + work on load
+    assert abs(m["energy_error"]) < 2e-3
+    # Snowplow sweep-up is inelastic: kinetic energy < work on the load
+    assert 0.5 * m["E_load"] < m["E_kin"] < m["E_load"]
+
+    # Shortcuts: fixed-L overestimates the peak; no dL/dt feedback implodes early
+    assert float(results["fixed"]["I"].max()) > 1.03 * m["I_peak"]
+    assert results["t_pinch_oneway"] < m["t_pinch"] - 2e-9
+
+    # First-order convergence in dt
+    assert results["convergence"]["dt_pinch"] < 0.02e-9
+    assert results["convergence"]["dI_peak"] < 1e-3
+
+    # Gradients (checked against central finite differences): higher voltage
+    # implodes earlier, heavier load or more line inductance implodes later
+    g = results["grads"]
+    assert abs(g["v_charge"] - (-1.7107e-12)) / 1.7107e-12 < 1e-3
+    assert abs(g["m_liner"] - 1.5886e-2) / 1.5886e-2 < 1e-3
+    assert abs(g["l_line"] - 1.7193) / 1.7193 < 1e-3
+
+
+def test_charged_line_pulser():
+    # Charged line (Z0 = 5 Ω, tau = 50 ns, V0 = 100 kV) switched into R
+    results = run_example_main("examples/charged_line_pulser/charged_line_pulser.py")
+
+    # Mid-plateau load voltage matches the bounce diagram
+    for rows in results["plateaus"].values():
+        for v_sim, v_ideal in rows:
+            assert abs(v_sim - v_ideal) < 1e-6 * 100e3
+    assert abs(results["plateaus"][5.0][0][0] - 49.975e3) < 1.0
+    assert abs(results["plateaus"][2.0][1][0] - (-12.207e3)) < 1.0
+
+    # The optimal first-pulse load is the matched load (within the switch's
+    # rise-time effect), and it takes nearly all the stored energy
+    assert abs(results["r_opt"] - 5.0) < 0.02
+    assert results["e_opt"] > 0.99 * results["stored"]
